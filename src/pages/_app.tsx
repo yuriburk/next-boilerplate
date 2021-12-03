@@ -1,7 +1,9 @@
 import { AppProps } from 'next/app'
 import Head from 'next/head'
+import { ThemeProvider } from 'styled-components'
 
 import GlobalStyle from 'styles/global'
+import { theme } from 'styles/theme'
 
 function App({ Component, pageProps }: AppProps) {
   return (
@@ -14,8 +16,10 @@ function App({ Component, pageProps }: AppProps) {
         <meta name="theme-color" content="#05092B" />
         <meta name="description" content="A boilerplate with Next JS" />
       </Head>
-      <GlobalStyle />
-      <Component {...pageProps} />
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
+        <Component {...pageProps} />
+      </ThemeProvider>
     </>
   )
 }
