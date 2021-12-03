@@ -1,7 +1,9 @@
+import * as SC from './styles'
+
 const Main = () => (
-  <main>
-    <h1>Burk.dev</h1>
-  </main>
+  <SC.Container>
+    <SC.Title>Burk.dev</SC.Title>
+  </SC.Container>
 )
 
 export default Main

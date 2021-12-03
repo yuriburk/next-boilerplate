@@ -4,10 +4,15 @@ import Main from '.'
 
 describe('<Main />', () => {
   it('should be able to render the heading', () => {
-    render(<Main />)
+    const { container } = render(<Main />)
 
-    expect(
-      screen.getByRole('heading', { name: /burk.dev/i })
-    ).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /burk.dev/i })).toBeInTheDocument()
+    expect(container).toMatchSnapshot()
+  })
+
+  it('should be able to render the colors correctly', () => {
+    const { container } = render(<Main />)
+
+    expect(container.firstChild).toHaveStyle({ 'background-color': '#05092b' })
   })
 })
