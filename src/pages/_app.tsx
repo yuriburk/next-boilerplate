@@ -1,9 +1,12 @@
 import { AppProps } from 'next/app'
 import Head from 'next/head'
+import { Provider } from 'react-redux'
 import { ThemeProvider } from 'styled-components'
 
+import { store, persistor } from 'store'
 import GlobalStyle from 'styles/global'
 import { theme } from 'styles/theme'
+import { PersistGate } from 'redux-persist/integration/react'
 
 function App({ Component, pageProps }: AppProps) {
   return (
@@ -16,10 +19,14 @@ function App({ Component, pageProps }: AppProps) {
         <meta name="theme-color" content="#05092B" />
         <meta name="description" content="A boilerplate with Next JS" />
       </Head>
-      <ThemeProvider theme={theme}>
-        <GlobalStyle />
-        <Component {...pageProps} />
-      </ThemeProvider>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <ThemeProvider theme={theme}>
+            <GlobalStyle />
+            <Component {...pageProps} />
+          </ThemeProvider>
+        </PersistGate>
+      </Provider>
     </>
   )
 }

@@ -1,5 +1,19 @@
-import Main from 'components/Main'
+import { saveId, selectId } from 'store/features/user'
+import { useAppDispatch, useAppSelector } from 'store/hooks'
 
 export default function Home() {
-  return <Main />
+  const id = useAppSelector(selectId)
+  const dispatch = useAppDispatch()
+
+  return (
+    <>
+      <button
+        onClick={() => {
+          dispatch(saveId(id + 1))
+        }}
+      >
+        Update id
+      </button>
+    </>
+  )
 }
