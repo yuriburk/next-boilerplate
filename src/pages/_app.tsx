@@ -2,11 +2,11 @@ import { AppProps } from 'next/app'
 import Head from 'next/head'
 import { Provider } from 'react-redux'
 import { ThemeProvider } from 'styled-components'
+import { PersistGate } from 'redux-persist/integration/react'
 
 import { store, persistor } from 'store'
 import GlobalStyle from 'styles/global'
 import { theme } from 'styles/theme'
-import { PersistGate } from 'redux-persist/integration/react'
 
 function App({ Component, pageProps }: AppProps) {
   return (
