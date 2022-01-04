@@ -4,11 +4,17 @@ import { Provider } from 'react-redux'
 import { ThemeProvider } from 'styled-components'
 import { PersistGate } from 'redux-persist/integration/react'
 
+import ComponentWrapper from 'components/ComponentWrapper'
 import { store, persistor } from 'store'
+import { RolesEnum } from 'models'
 import GlobalStyle from 'styles/global'
 import { theme } from 'styles/theme'
 
-function App({ Component, pageProps }: AppProps) {
+export interface CustomAppProps extends Omit<AppProps, 'Component'> {
+  Component: AppProps['Component'] & { allowedRoles?: RolesEnum[] }
+}
+
+function App(props: CustomAppProps) {
   return (
     <>
       <Head>
@@ -23,7 +29,7 @@ function App({ Component, pageProps }: AppProps) {
         <PersistGate loading={null} persistor={persistor}>
           <ThemeProvider theme={theme}>
             <GlobalStyle />
-            <Component {...pageProps} />
+            <ComponentWrapper {...props} />
           </ThemeProvider>
         </PersistGate>
       </Provider>

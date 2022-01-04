@@ -1,14 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
+import { RolesEnum } from 'models'
 import type { RootState } from 'store'
 import { StoreSlices } from 'store/types'
 
 export type UserState = {
   id: number
+  role: RolesEnum
 }
 
 const initialState: UserState = {
-  id: 1
+  id: 1,
+  role: RolesEnum.ADMIN
 }
 
 export const userSlice = createSlice({
@@ -17,12 +20,16 @@ export const userSlice = createSlice({
   reducers: {
     saveId: (state, action: PayloadAction<number>) => {
       state.id = action.payload
+    },
+    saveRole: (state, action: PayloadAction<RolesEnum>) => {
+      state.role = action.payload
     }
   }
 })
 
-export const { saveId } = userSlice.actions
+export const { saveId, saveRole } = userSlice.actions
 
 export const selectId = (state: RootState) => state.user.id
+export const selectRole = (state: RootState) => state.user.role
 
 export default userSlice.reducer
