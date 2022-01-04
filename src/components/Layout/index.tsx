@@ -28,7 +28,7 @@ const Layout: React.FC<LayoutProps> = ({ breadcrumb, children }) => {
           onCollapse={onCollapse}
           breakpoint="lg"
           collapsedWidth={isMobile ? 0 : 80}
-          onBreakpoint={(mobile) => setIsMobile(mobile)}
+          onBreakpoint={mobile => setIsMobile(mobile)}
         >
           <div className="logo" />
           <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
