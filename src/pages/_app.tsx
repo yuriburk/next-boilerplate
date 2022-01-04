@@ -1,12 +1,21 @@
 import { AppProps } from 'next/app'
 import Head from 'next/head'
+import { Provider } from 'react-redux'
 import { ThemeProvider } from 'styled-components'
+import { PersistGate } from 'redux-persist/integration/react'
 import 'antd/dist/antd.css'
 
+import ComponentWrapper from 'components/ComponentWrapper'
+import { store, persistor } from 'store'
+import { RolesEnum } from 'models'
 import GlobalStyle from 'styles/global'
 import { theme } from 'styles/theme'
 
-function App({ Component, pageProps }: AppProps) {
+export interface CustomAppProps extends Omit<AppProps, 'Component'> {
+  Component: AppProps['Component'] & { allowedRoles?: RolesEnum[] }
+}
+
+function App(props: CustomAppProps) {
   return (
     <>
       <Head>
@@ -17,10 +26,14 @@ function App({ Component, pageProps }: AppProps) {
         <meta name="theme-color" content="#05092B" />
         <meta name="description" content="A boilerplate with Next JS" />
       </Head>
-      <ThemeProvider theme={theme}>
-        <GlobalStyle />
-        <Component {...pageProps} />
-      </ThemeProvider>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <ThemeProvider theme={theme}>
+            <GlobalStyle />
+            <ComponentWrapper {...props} />
+          </ThemeProvider>
+        </PersistGate>
+      </Provider>
     </>
   )
 }
