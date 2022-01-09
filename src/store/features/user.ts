@@ -9,27 +9,21 @@ export type UserState = {
   role: RolesEnum
 }
 
-const initialState: UserState = {
-  id: 1,
-  role: RolesEnum.ADMIN
-}
+const initialState: UserState = {} as UserState
 
 export const userSlice = createSlice({
   name: StoreSlices.USER,
   initialState,
   reducers: {
-    saveId: (state, action: PayloadAction<number>) => {
-      state.id = action.payload
-    },
-    saveRole: (state, action: PayloadAction<RolesEnum>) => {
-      state.role = action.payload
+    saveUser: (state, action: PayloadAction<UserState>) => {
+      return { ...action.payload }
     }
   }
 })
 
-export const { saveId, saveRole } = userSlice.actions
+export const { saveUser } = userSlice.actions
 
-export const selectId = (state: RootState) => state.user.id
+export const selectUser = (state: RootState) => state.user
 export const selectRole = (state: RootState) => state.user.role
 
 export default userSlice.reducer
